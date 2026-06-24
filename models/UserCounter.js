@@ -5,4 +5,4 @@ const userCounterSchema = new mongoose.Schema({
   seq: { type: Number, default: 0 },
 });
 
-const UserCounter = mongoose.model("UserCounter", userCounterSchema);
+module.exports = mongoose.model("UserCounter", userCounterSchema);

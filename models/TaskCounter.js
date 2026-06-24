@@ -5,4 +5,4 @@ const taskCounterSchema = new mongoose.Schema({
   seq: { type: Number, default: 0 },
 });
 
-const TaskCounter = mongoose.model("TaskCounter", taskCounterSchema);
+module.exports = mongoose.model("TaskCounter", taskCounterSchema);

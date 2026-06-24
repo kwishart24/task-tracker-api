@@ -22,6 +22,63 @@ function authRoutes() {
     }
 
     //Hash password
+    const salt = bcrypt.genSaltSync();
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
+    //Save new user
+    const newUser = { name, email, hashedPassword };
+    global.users.push(newUser);
+
+    console.log(newUser);
+
+    //Token
+    const token = jwt.sign(
+      {
+        email: newUser.email,
+        name: newUser.name,
+      },
+      process.env.JWT_SECRET,
+    );
+
+    return res.status(201).json({
+      message: "New user has been registered!",
+      user: { name, email },
+      token,
+    });
+  });
+
+  //*************************LOGIN***********************/
+
+  router.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    //Check if user exists
+    const foundUser = global.users.find((u) => u.email === email);
+
+    if (!foundUser) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    //Compare entered password with stored hashed password
+    const passwordMatch = bcrypt.compareSync(
+      password,
+      foundUser.hashedPassword,
+    );
+
+    if (!passwordMatch) {
+      //Return error message if login failed
+      return res
+        .status(401)
+        .json({ message: "Email or password does not match" });
+    }
+
+    const token = jwt.sign(
+      { email: foundUser.email, name: foundUser.name },
+      process.env.JWT_SECRET,
+    );
+
+    //Return JWT token if login successful
+    return res.status(200).json({ message: "Login successful", token });
   });
 
   return router;

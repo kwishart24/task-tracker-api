@@ -2,30 +2,30 @@ const mongoose = require("mongoose");
 const UserCounter = require("./UserCounter.js");
 
 const userSchema = new mongoose.Schema({
-  user: {
-    userId: {
-      type: Number,
-      required: true,
-    },
-    name: {
-      type: String,
-      reqired: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+  userId: {
+    type: Number,
+    unique: true,
+  },
+  name: {
+    type: String,
+    reqired: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
+//Auto-increment userId
 userSchema.pre("save", async function (next) {
   if (this.isNew) {
     try {
@@ -44,6 +44,4 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-const User = mongoose.model("User", taskSchema);
-
-export default User;
+module.exports = mongoose.model("User", userSchema);

@@ -2,35 +2,35 @@ const mongoose = require("mongoose");
 const TaskCounter = require("./TaskCounter.js");
 
 const taskSchema = new mongoose.Schema({
-  task: {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: [true, "User ID is required"],
-      ref: "User",
-    },
-    taskId: {
-      type: Number,
-      unique: true,
-    },
-    title: {
-      type: String,
-      reqired: true,
-    },
-    description: {
-      type: String,
-      required: false,
-    },
-    completionStatus: {
-      type: Boolean,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, "User ID is required"],
+    ref: "User",
+  },
+  taskId: {
+    type: Number,
+    unique: true,
+  },
+  title: {
+    type: String,
+    reqired: true,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  completionStatus: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
+//Auto-increment taskId
 taskSchema.pre("save", async function (next) {
   if (this.isNew) {
     try {
@@ -49,6 +49,4 @@ taskSchema.pre("save", async function (next) {
   }
 });
 
-const Task = mongoose.model("Task", taskSchema);
-
-export default Task;
+module.exports = mongoose.model("Task", taskSchema);
