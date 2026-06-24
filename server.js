@@ -1,7 +1,9 @@
 const express = require("express");
 const { connectDb } = require("./config/db");
+const { authMiddleware } = require("./middleware/authMiddleware.js");
 const { healthRouter } = require("./routes/healthRouter");
 const { authRoutes } = require("./routes/authRoutes");
+const { protectedRoutes } = require("./routes/protectedRoutes.js");
 
 require("dotenv").config();
 
@@ -21,6 +23,9 @@ app.use("/api/health", healthRouter());
 
 //Public Routes
 app.use("/api/auth", authRoutes());
+
+//Protected Routes
+app.use("/api/protected", protectedRoutes());
 
 //Test Route
 app.get("/", (req, res) => {

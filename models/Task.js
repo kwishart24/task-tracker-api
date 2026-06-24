@@ -19,7 +19,7 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  completionStatus: {
+  isCompleted: {
     type: Boolean,
     required: true,
     default: false,
