@@ -52,7 +52,7 @@ cd task-tracker-api
 3. Install dependencies
 
 bash
-`npm install
+`npm install`
 
 4. Create a .env file in the project root
    Add the required environment variables (see next section).
@@ -60,7 +60,7 @@ bash
 5. Start the server
 
 bash
-`npm run dev
+`npm run dev`
 
 The API will run on the port you specify in your .env.
 
@@ -106,13 +106,17 @@ Include the JWT token in the Authorization header for all protected routes
 Example header:
 
 Code
-`Authorization: Bearer
+`Authorization: Bearer <token>`
 
 Ensure your MongoDB instance is running before testing
 
 ## Known Issues / Future Improvements
 
 - Add pagination for large task lists
+
+- Add bulk create tasks route
+
+- Add logout route
 
 - Add user profile routes
 
