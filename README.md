@@ -68,8 +68,6 @@ The API will run on the port you specify in your .env.
 
 Create a .env file with the following keys:
 
-Code
-
 ```
 PORT=your_port_number
 MONGO_URI=your_mongodb_connection_string
@@ -82,20 +80,22 @@ JWT_SECRET=your_jwt_secret
 
 ### Auth Routes
 
-Method Endpoint Description
-POST /register Register a new user
-POST /login Log in and receive a JWT
+#### Method Endpoint Description
+
+- POST /register Register a new user
+- POST /login Log in and receive a JWT
 
 ### Task Routes (Protected)
 
 All task routes require a valid Authorization: Bearer <token> header.
 
-Method Endpoint Description
-POST /tasks Create a new task
-GET /tasks Get all tasks for the logged‑in user
-GET /tasks/:taskId Get a single task by taskId
-PATCH /tasks/:taskId Update a task
-DELETE /tasks/:taskId Delete a task
+#### Method Endpoint Description
+
+- POST /tasks Create a new task
+- GET /tasks Get all tasks for the logged‑in user
+- GET /tasks/:taskId Get a single task by taskId
+- PATCH /tasks/:taskId Update a task
+- DELETE /tasks/:taskId Delete a task
 
 ## Testing Notes
 
@@ -105,7 +105,6 @@ Include the JWT token in the Authorization header for all protected routes
 
 Example header:
 
-Code
 `Authorization: Bearer <token>`
 
 Ensure your MongoDB instance is running before testing
