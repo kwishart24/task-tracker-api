@@ -83,6 +83,12 @@ JWT_SECRET=your_jwt_secret
 
 ## API Routes Overview
 
+### Health Route
+
+#### Method Endpoint Description
+
+- GET /health Confirms API is running
+
 ### Auth Routes
 
 #### Method Endpoint Description
