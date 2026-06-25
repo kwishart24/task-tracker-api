@@ -70,21 +70,20 @@ function authRoutes() {
 
   //*************************LOGIN***********************/
 
-  router.post("/login", (req, res) => {
+  router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     //Check if user exists
-    const foundUser = global.users.find((u) => u.email === email);
+    // const foundUser = global.users.find((u) => u.email === email);
+
+    const foundUser = await User.findOne({ email });
 
     if (!foundUser) {
       return res.status(400).json({ message: "User not found" });
     }
 
     //Compare entered password with stored hashed password
-    const passwordMatch = bcrypt.compareSync(
-      password,
-      foundUser.hashedPassword,
-    );
+    const passwordMatch = bcrypt.compareSync(password, foundUser.password);
 
     if (!passwordMatch) {
       //Return error message if login failed
