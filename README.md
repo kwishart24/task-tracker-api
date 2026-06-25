@@ -52,7 +52,12 @@ cd task-tracker-api
 3. Install dependencies
 
 bash
-`npm install`
+
+```
+npm install
+npm install express dotenv bcryptjs jsonwebtoken
+npm install --save-dev nodemon
+```
 
 4. Create a .env file in the project root
    Add the required environment variables (see next section).
@@ -99,15 +104,15 @@ All task routes require a valid Authorization: Bearer <token> header.
 
 ## Testing Notes
 
-Use Postman, Thunder Client, or Insomnia to test routes
+- Use Postman, Thunder Client, or Insomnia to test routes
 
-Include the JWT token in the Authorization header for all protected routes
+- Include the JWT token in the Authorization header for all protected routes
 
 Example header:
 
 `Authorization: Bearer <token>`
 
-Ensure your MongoDB instance is running before testing
+- Ensure your MongoDB instance is running before testing
 
 ## Known Issues / Future Improvements
 
