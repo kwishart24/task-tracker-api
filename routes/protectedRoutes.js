@@ -75,10 +75,53 @@ function protectedRoutes() {
     }
   });
 
-  //*************************UPDATE TASKS***********************/
+  //*************************UPDATE TASK ID***********************/
+  router.patch("/tasks/:taskId", authMiddleware, async (req, res) => {
+    try {
+      const { taskId } = req.params;
+      const { title, description, isCompleted } = req.body;
 
+      //Make sure body has title
+      if (title !== undefined && title.trim() === "") {
+        return res
+          .status(400)
+          .json({ message: "Title is required and cannot be empty" });
+      }
 
-  
+      //Validate taskId
+      const foundTask = await Task.findOne({
+        userId: req.user.id,
+        taskId: Number(taskId),
+      });
+
+      if (!foundTask) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      // Apply updates to task
+      if (title !== undefined) {
+        foundTask.title = title;
+      }
+      if (description !== undefined) {
+        foundTask.description = description;
+      }
+      if (isCompleted !== undefined) {
+        foundTask.isCompleted = isCompleted;
+      }
+
+      //Save updated the task
+      const updatedTask = await foundTask.save();
+
+      //Return the updated task
+      return res
+        .status(200)
+        .json({ message: "Task updated successfully", task: updatedTask });
+    } catch (error) {
+      console.error("Error updating task:", error);
+      return res.status(500).json({ message: "Server error task" });
+    }
+  });
+
   //*************************DELETE TASKS***********************/
 
   return router;
