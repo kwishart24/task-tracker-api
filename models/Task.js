@@ -33,19 +33,12 @@ const taskSchema = new mongoose.Schema({
 //Auto-increment taskId
 taskSchema.pre("save", async function (next) {
   if (this.isNew) {
-    try {
-      const counter = await TaskCounter.findOneAndUpdate(
-        { _id: "taskId" },
-        { $inc: { seq: 1 } },
-        { new: true, upsert: true },
-      );
-      this.taskId = counter.seq;
-      next();
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    next();
+    const counter = await TaskCounter.findOneAndUpdate(
+      { _id: "taskId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true },
+    );
+    this.taskId = counter.seq;
   }
 });
 

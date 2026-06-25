@@ -44,6 +44,7 @@ function authRoutes() {
       //Token
       const token = jwt.sign(
         {
+          id: newUser._id,
           email: newUser.email,
           name: newUser.name,
         },
@@ -93,7 +94,11 @@ function authRoutes() {
     }
 
     const token = jwt.sign(
-      { email: foundUser.email, name: foundUser.name },
+      {
+        id: foundUser._id,
+        email: foundUser.email,
+        name: foundUser.name,
+      },
       process.env.JWT_SECRET,
     );
 

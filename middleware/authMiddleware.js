@@ -16,11 +16,11 @@ function authMiddleware(req, res, next) {
   }
 
   //Extract token
-  const sessionToken = authHeader.split(" ")[1];
+  const token = authHeader.split(" ")[1];
 
   try {
     //Verify token
-    const decoded = jwt.verify(sessionToken, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     //Attach user info to request
     req.user = decoded;
