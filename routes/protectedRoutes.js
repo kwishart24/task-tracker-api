@@ -34,10 +34,51 @@ function protectedRoutes() {
     }
   });
 
-  //*************************GET TASKS***********************/
+  //*************************GET ALL TASKS***********************/
+  router.get("/tasks", authMiddleware, async (req, res) => {
+    try {
+      //Fetch all tasks for user
+      const tasks = await Task.find({ userId: req.user.id });
+
+      //Return tasks for this user
+      return res
+        .status(200)
+        .json({ message: "Tasks retrieved successfully", tasks });
+    } catch (error) {
+      console.error("Error retrieving tasks:", error);
+      return res.status(500).json({ message: "Server error task" });
+    }
+  });
+
+  //*************************GET ONE TASK BY ID***********************/
+  router.get("/tasks/:taskId", authMiddleware, async (req, res) => {
+    try {
+      const { taskId } = req.params;
+
+      //Fetch one task by Id for user
+      const oneTask = await Task.findOne({
+        userId: req.user.id,
+        taskId: Number(taskId),
+      });
+
+      if (!oneTask) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      //Return tasks for this user
+      return res
+        .status(200)
+        .json({ message: "Task retrieved successfully", oneTask });
+    } catch (error) {
+      console.error("Error retrieving your task:", error);
+      return res.status(500).json({ message: "Server error task" });
+    }
+  });
 
   //*************************UPDATE TASKS***********************/
 
+
+  
   //*************************DELETE TASKS***********************/
 
   return router;
