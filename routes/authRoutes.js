@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 function authRoutes() {
   const router = Router();
@@ -9,42 +10,62 @@ function authRoutes() {
   global.users = global.users || [];
 
   //*************************REGISTRATION***********************/
-  router.post("/register", (req, res) => {
-    const { name, email, password } = req.body;
+  router.post("/register", async (req, res) => {
+    try {
+      const { name, email, password } = req.body;
 
-    //check if user already exists
-    const storedUser = global.users.find((u) => u.email === email);
+      //check if user already exists
+      //const storedUser = global.users.find((u) => u.email === email);
+      const storedUser = await User.findOne({ email });
 
-    if (storedUser) {
+      if (storedUser) {
+        return res
+          .status(400)
+          .json({ message: "Email has already been registered, please login" });
+      }
+
+      //Hash password
+      const salt = bcrypt.genSaltSync();
+      const hashedPassword = bcrypt.hashSync(password, salt);
+
+      //Create New User
+      const newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+      });
+
+      //Save new user
+      // const newUser = { name, email, userId, hashedPassword };
+      // global.users.push(newUser);
+
+      console.log(newUser);
+
+      //Token
+      const token = jwt.sign(
+        {
+          email: newUser.email,
+          name: newUser.name,
+        },
+        process.env.JWT_SECRET,
+      );
+
+      return res.status(201).json({
+        message: "New user has been registered!",
+        user: {
+          id: newUser._id,
+          name: newUser.name,
+          email: newUser.email,
+          createdAt: newUser.createdAt,
+        },
+        token,
+      });
+    } catch (error) {
+      console.error("Registration error:", error);
       return res
-        .status(400)
-        .json({ message: "Email has already been registered, please login" });
+        .status(500)
+        .json({ message: "Server error during registration" });
     }
-
-    //Hash password
-    const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(password, salt);
-
-    //Save new user
-    const newUser = { name, email, hashedPassword };
-    global.users.push(newUser);
-
-    console.log(newUser);
-
-    //Token
-    const token = jwt.sign(
-      {
-        email: newUser.email,
-        name: newUser.name,
-      },
-      process.env.JWT_SECRET,
-    );
-
-    return res.status(201).json({
-      message: "New user has been registered!",
-      user: { name, email },
-      token,
-    });
   });
 
   //*************************LOGIN***********************/

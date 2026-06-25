@@ -25,22 +25,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-//Auto-increment userId
-userSchema.pre("save", async function (next) {
+// Auto-increment userId
+userSchema.pre("save", async function () {
   if (this.isNew) {
-    try {
-      const counter = await UserCounter.findOneAndUpdate(
-        { _id: "userId" },
-        { $inc: { seq: 1 } },
-        { new: true, upsert: true },
-      );
-      this.userId = counter.seq;
-      next();
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    next();
+    const counter = await UserCounter.findOneAndUpdate(
+      { _id: "userId" },
+      { $inc: { seq: 1 } },
+      { returnDocument: "after", upsert: true },
+    );
+
+    this.userId = counter.seq;
   }
 });
 
