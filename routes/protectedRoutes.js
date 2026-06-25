@@ -122,8 +122,38 @@ function protectedRoutes() {
     }
   });
 
-  //*************************DELETE TASKS***********************/
+  //*************************DELETE TASK BY ID***********************/
+  router.delete("/tasks/:taskId", authMiddleware, async (req, res) => {
+    try {
+      const { taskId } = req.params;
 
+      //Check if task exists for user
+      const oldTask = await Task.findOne({
+        userId: req.user.id,
+        taskId: Number(taskId),
+      });
+
+      if (!oldTask) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      //Delete task from database
+      const deletedTask = await Task.findOneAndDelete({
+        userId: req.user.id,
+        taskId: Number(taskId),
+      });
+
+      //Return tasks for this user
+      return res.status(200).json({
+        message: "Task deleted successfully",
+        deletedTaskId: taskId,
+        deletedTaskTitle: oldTask.title,
+      });
+    } catch (error) {
+      console.error("Error deleting your task:", error);
+      return res.status(500).json({ message: "Server error task" });
+    }
+  });
   return router;
 }
 
