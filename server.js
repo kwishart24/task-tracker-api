@@ -1,9 +1,9 @@
 const express = require("express");
-const { connectDb } = require("./config/db");
-const { authMiddleware } = require("./middleware/authMiddleware.js");
-const { healthRouter } = require("./routes/healthRouter");
-const { authRoutes } = require("./routes/authRoutes");
-const { protectedRoutes } = require("./routes/protectedRoutes.js");
+const { connectDb } = require("./backend/config/db");
+const { authMiddleware } = require("./backend/middleware/authMiddleware.js");
+const { healthRouter } = require("./backend/routes/healthRouter");
+const { authRoutes } = require("./backend/routes/authRoutes");
+const { protectedRoutes } = require("./backend/routes/protectedRoutes.js");
 
 require("dotenv").config();
 
