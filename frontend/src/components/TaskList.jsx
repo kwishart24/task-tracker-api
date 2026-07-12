@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-function TodoList() {
+function TaskList() {
   // Store the todo items returned from the API
-  const [todos, setTodos] = useState([]);
+  const [taskList, setTaskList] = useState([]);
 
   // Track whether the data is still loading
   const [loading, setLoading] = useState(true);
@@ -11,10 +11,10 @@ function TodoList() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function fetchTodos() {
+    async function fetchTaskList() {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/todos",
+          "https://jsonplaceholder.typicode.com/TaskList",
         );
 
         if (!response.ok) {
@@ -24,7 +24,7 @@ function TodoList() {
         const data = await response.json();
 
         // Show only the first 10 items so the page is easier to read
-        setTodos(data.slice(0, 10));
+        setTaskList(data.slice(0, 10));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -32,11 +32,11 @@ function TodoList() {
       }
     }
 
-    fetchTodos();
+    fetchTaskList();
   }, []);
 
   if (loading) {
-    return <p>Loading todos...</p>;
+    return <p>Loading TaskList...</p>;
   }
 
   if (error) {
@@ -45,14 +45,14 @@ function TodoList() {
 
   return (
     <section>
-      <h2>Todo Items</h2>
+      <h2>Tasks</h2>
 
       <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <strong>{todo.title}</strong>
+        {taskList.map((task) => (
+          <li key={task.id}>
+            <strong>{task.title}</strong>
             <br />
-            Status: {todo.completed ? "Complete" : "Not Complete"}
+            Status: {task.completed ? "Complete" : "Not Complete"}
           </li>
         ))}
       </ul>
@@ -60,4 +60,4 @@ function TodoList() {
   );
 }
 
-export default TodoList;
+export default TaskList;

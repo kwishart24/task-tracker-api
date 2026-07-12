@@ -1,5 +1,6 @@
-import TodoList from "./components/TodoList";
 import { useEffect } from "react";
+import TaskList from "./components/TaskList";
+import RegisterForm from "./components/RegisterForm";
 
 function App() {
   useEffect(() => {
@@ -18,7 +19,8 @@ function App() {
         the results using React.
       </p>
 
-      <TodoList />
+      <TaskList />
+      <RegisterForm />
     </main>
   );
 }
