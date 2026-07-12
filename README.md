@@ -57,6 +57,7 @@ bash
 npm install
 npm install express dotenv bcryptjs jsonwebtoken
 npm install --save-dev nodemon
+npm install cors
 ```
 
 4. Install dependencies for the frontend
@@ -93,12 +94,18 @@ The API will run on the port you specify in your .env.
 
 ## Required Environment Variables
 
-Create a .env file with the following keys:
+Create a .env file in the backend folder with the following keys:
 
 ```
 PORT=your_port_number
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+```
+
+Create a .env file in the frontend folder with the following keys:
+
+```
+VITE_API_URL=your_local_host_backend_url
 ```
 
 **Do NOT include your actual values in the README or commit them to GitHub.**
