@@ -46,10 +46,10 @@ bash
 
 ```
 git clone your_repo_url_here
-cd task-tracker-api
+cd task-tracker-final
 ```
 
-3. Install dependencies
+3. Install dependencies for the backend
 
 bash
 
@@ -59,13 +59,35 @@ npm install express dotenv bcryptjs jsonwebtoken
 npm install --save-dev nodemon
 ```
 
-4. Create a .env file in the project root
-   Add the required environment variables (see next section).
-
-5. Start the server
+4. Install dependencies for the frontend
 
 bash
-`npm run dev`
+
+```
+cd ../frontend
+npm install
+```
+
+5. Create a .env file in the project root
+   Add the required environment variables (see next section).
+
+6. Start the server in the backend
+
+bash
+
+```
+cd ../backend
+npm run dev
+```
+
+7. Start the project in the frontend
+
+bash
+
+```
+cd ../frontend
+npm run dev
+```
 
 The API will run on the port you specify in your .env.
 

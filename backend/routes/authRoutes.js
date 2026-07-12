@@ -2,6 +2,7 @@ const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 
 function authRoutes() {
   const router = Router();
@@ -104,6 +105,11 @@ function authRoutes() {
 
     //Return JWT token if login successful
     return res.status(200).json({ message: "Login successful", token });
+  });
+
+  //*************************LOGOUT***********************/
+  router.post("/logout", (req, res) => {
+    return res.status(200).json({ message: "Logoff successful" });
   });
 
   return router;
