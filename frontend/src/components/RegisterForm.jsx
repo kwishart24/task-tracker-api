@@ -2,12 +2,12 @@ import { useState } from "react";
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
-    Name: "",
+    name: "",
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState({});
 
   //Helper function for submitting form
   const handleChange = (e) => {
@@ -38,17 +38,38 @@ function RegistrationForm() {
   };
 
   //Handle Form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Form Submitted Successfully: ", formData);
-      alert("Registration Successful");
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/auth/register`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          },
+        );
 
-      //Reset Form
-      setFormData({ name: "", email: "", password: "" });
-      setErrors({});
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Registration Successful");
+
+          //Reset Form
+          setFormData({ name: "", email: "", password: "" });
+          setErrors({});
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Something went wrong");
+      }
     } else {
       setErrors(validationErrors);
     }
@@ -65,7 +86,7 @@ function RegistrationForm() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          requried
+          required
         />
         {errors.name && <span>{errors.name}</span>}
 
@@ -76,7 +97,7 @@ function RegistrationForm() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          requried
+          required
         />
         {errors.email && <span>{errors.email}</span>}
 
@@ -87,7 +108,7 @@ function RegistrationForm() {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          requried
+          required
         />
         {errors.password && <span>{errors.password}</span>}
 

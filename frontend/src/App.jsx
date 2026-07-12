@@ -1,8 +1,19 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import Navbar from "./components/Navbar";
 import TaskList from "./components/TaskList";
 import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+    setLoggedIn(true);
+  };
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/health`)
       .then((res) => res.json())
@@ -11,17 +22,21 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <h1>React API Practice</h1>
+    <>
+      <Navbar user={user} loggedIn={loggedIn} />
+      <main>
+        <h1>React API Practice</h1>
 
-      <p>
-        This app connects to a practice API, retrieves todo data, and displays
-        the results using React.
-      </p>
+        <p>
+          This app connects to a practice API, retrieves todo data, and displays
+          the results using React.
+        </p>
 
-      <TaskList />
-      <RegisterForm />
-    </main>
+        <TaskList />
+        <RegisterForm />
+        <LoginForm onLogin={handleLogin} setLoggedIn={setLoggedIn} />
+      </main>
+    </>
   );
 }
 
