@@ -10,6 +10,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = (userData) => {
+    console.log("Handlelogin called");
+    console.log(userData);
+
     setUser(userData);
     setLoggedIn(true);
   };
@@ -34,7 +37,7 @@ function App() {
 
         <TaskList />
         <RegisterForm />
-        <LoginForm onLogin={handleLogin} setLoggedIn={setLoggedIn} />
+        <LoginForm onLogin={handleLogin} />
       </main>
     </>
   );

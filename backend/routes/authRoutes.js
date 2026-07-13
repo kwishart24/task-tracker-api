@@ -104,7 +104,9 @@ function authRoutes() {
     );
 
     //Return JWT token if login successful
-    return res.status(200).json({ message: "Login successful", token });
+    return res
+      .status(200)
+      .json({ message: "Login successful", foundUser, token });
   });
 
   //*************************LOGOUT***********************/
