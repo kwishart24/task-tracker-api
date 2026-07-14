@@ -94,7 +94,11 @@ function App() {
         <h1>Task App</h1>
 
         {user ? (
-          <TaskList user={user} taskList={taskList} />
+          <TaskList
+            user={user}
+            taskList={taskList}
+            onTaskUpdated={fetchTaskList}
+          />
         ) : (
           <p>Please log in to view your tasks.</p>
         )}
