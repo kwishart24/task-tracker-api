@@ -7,14 +7,14 @@ import LoginForm from "./components/LoginForm";
 function App() {
   const [user, setUser] = useState(null);
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  //const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = (userData) => {
     console.log("Handlelogin called");
     console.log(userData);
 
     setUser(userData);
-    setLoggedIn(true);
+    //setLoggedIn(true);
   };
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-      <Navbar user={user} loggedIn={loggedIn} />
+      <Navbar user={user} />
       <main>
         <h1>React API Practice</h1>
 

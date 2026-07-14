@@ -55,6 +55,7 @@ function LoginForm({ onLogin }) {
         console.log(data.foundUser);
 
         if (response.ok) {
+          localStorage.setItem("token", data.token);
           onLogin(data.foundUser);
           alert("Login Successful");
 
