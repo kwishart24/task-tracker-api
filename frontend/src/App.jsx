@@ -32,6 +32,8 @@ function App() {
       return;
     }
 
+    setLoading(true);
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/protected/tasks`,
@@ -61,7 +63,7 @@ function App() {
     if (user) {
       fetchTaskList();
     }
-  }, [user, fetchTaskList]);
+  }, [user]);
 
   //Logout
   const logout = () => {
