@@ -13,16 +13,17 @@
 //   );
 // }
 
-function Navbar({ user }) {
+function Navbar({ user, logout }) {
   return (
     <nav>
       {user ? (
         <>
           <p>Logged In</p>
+          <button onClick={logout}>Log Out</button>
           <p>Hello, {user.name}! What are we doing today?</p>
         </>
       ) : (
-        <p>Logged Out</p>
+        <button>Log In</button>
       )}
     </nav>
   );
