@@ -7,6 +7,10 @@ import LoginForm from "./components/LoginForm";
 import TaskForm from "./components/TaskForm";
 
 function App() {
+  //Backend health check if the backend is connected
+  const [backendConnected, setBackendConnected] = useState(true);
+  const [backendError, setBackendError] = useState("");
+
   const [user, setUser] = useState(null);
 
   const [taskList, setTaskList] = useState([]);
@@ -17,8 +21,7 @@ function App() {
   // Store an error message if something goes wrong
   const [error, setError] = useState("");
 
-  //const [loggedIn, setLoggedIn] = useState(false);
-
+  //Handlelogin setting user state
   const handleLogin = (userData) => {
     console.log("Handlelogin called");
     console.log(userData);
@@ -33,6 +36,9 @@ function App() {
     }
 
     setLoading(true);
+
+    // Temporary delay for testing
+    // await new Promise((resolve) => setTimeout(resolve, 5000));
 
     try {
       const response = await fetch(
@@ -73,18 +79,45 @@ function App() {
   };
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/health`)
-      .then((res) => res.json())
-      .then((data) => console.log("Backend says:", data))
-      .catch((err) => console.error("Health check failed:", err));
+    const checkBackend = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/health`,
+        );
+
+        if (!response.ok) {
+          throw new Error("Backend health check failed.");
+        }
+
+        const data = await response.json();
+
+        console.log("Backend says: ", data);
+
+        setBackendConnected(true);
+        setBackendError("");
+      } catch (err) {
+        console.error(err);
+
+        setBackendConnected(false);
+        setBackendError(
+          "Connection to the backend failed. Check the server is running.",
+        );
+      }
+    };
+
+    checkBackend();
   }, []);
 
-  if (loading) {
-    return <p>Loading TaskList...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
+  if (!backendConnected) {
+    return (
+      <main>
+        <h1>Task App</h1>
+        <div className="error-message">
+          <p>Unable to connect to the backend. </p>
+          <p>Please start the backend server and refresh the page.</p>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -92,20 +125,26 @@ function App() {
       <Navbar user={user} logout={logout} />
       <main>
         <h1>Task App</h1>
-
-        {user ? (
-          <TaskList
-            user={user}
-            taskList={taskList}
-            onTaskUpdated={fetchTaskList}
-          />
-        ) : (
-          <p>Please log in to view your tasks.</p>
+        {loading && <p>Loading tasks...</p>}
+        {error && <p>Error: {error}</p>}
+        {!user && (
+          <>
+            <p>Please log in to view your tasks.</p>
+            <RegisterForm />
+            <LoginForm onLogin={handleLogin} />
+          </>
         )}
 
-        {user && <TaskForm user={user} fetchTaskList={fetchTaskList} />}
-        <RegisterForm />
-        <LoginForm onLogin={handleLogin} />
+        {!loading && !error && user && (
+          <>
+            <TaskForm user={user} fetchTaskList={fetchTaskList} />
+            <TaskList
+              user={user}
+              taskList={taskList}
+              onTaskUpdated={fetchTaskList}
+            />
+          </>
+        )}
       </main>
     </>
   );

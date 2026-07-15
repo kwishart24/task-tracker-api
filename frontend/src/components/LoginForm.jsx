@@ -101,7 +101,7 @@ function LoginForm({ onLogin }) {
         {errors.password && <span>{errors.password}</span>}
 
         <button type="submit" style={{ cursor: "pointer" }}>
-          Submit
+          Login
         </button>
       </form>
     </section>

@@ -58,7 +58,7 @@ function RegistrationForm() {
         const data = await response.json();
 
         if (response.ok) {
-          alert("Registration Successful");
+          alert("Registration Successful! Please login");
 
           //Reset Form
           setFormData({ name: "", email: "", password: "" });
@@ -113,7 +113,7 @@ function RegistrationForm() {
         {errors.password && <span>{errors.password}</span>}
 
         <button type="submit" style={{ cursor: "pointer" }}>
-          Submit
+          Register
         </button>
       </form>
     </section>
