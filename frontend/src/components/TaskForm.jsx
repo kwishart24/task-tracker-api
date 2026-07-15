@@ -48,30 +48,42 @@ function TaskForm({ user, fetchTaskList }) {
   };
 
   return (
-    <section>
+    <section className="my-3">
       <h2>Add a New Task</h2>
 
       {error && <p>{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+        <div className="my-4">
+          <label htmlFor="title" className="form-label">
+            Title:
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
 
-        <label htmlFor="description">Description:</label>
-        <input
-          type="text"
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <div>
+          <label htmlFor="description" className="form-label">
+            Description:
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn btn-success mt-4">
+          Submit
+        </button>
       </form>
     </section>
   );

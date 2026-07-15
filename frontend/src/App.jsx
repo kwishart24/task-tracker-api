@@ -5,6 +5,9 @@ import TaskList from "./components/TaskList";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import TaskForm from "./components/TaskForm";
+import Container from "react-bootstrap/esm/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function App() {
   //Backend health check if the backend is connected
@@ -121,32 +124,54 @@ function App() {
   }
 
   return (
-    <>
+    <div className="container my-4">
       <Navbar user={user} logout={logout} />
       <main>
-        <h1>Task App</h1>
-        {loading && <p>Loading tasks...</p>}
-        {error && <p>Error: {error}</p>}
-        {!user && (
-          <>
-            <p>Please log in to view your tasks.</p>
-            <RegisterForm />
-            <LoginForm onLogin={handleLogin} />
-          </>
-        )}
+        <Container className="mt-4">
+          <h1 className="text-center">Task App</h1>
 
-        {!loading && !error && user && (
-          <>
-            <TaskForm user={user} fetchTaskList={fetchTaskList} />
-            <TaskList
-              user={user}
-              taskList={taskList}
-              onTaskUpdated={fetchTaskList}
-            />
-          </>
-        )}
+          {loading && <p>Loading tasks...</p>}
+          {error && <p>Error: {error}</p>}
+          {!user && (
+            <>
+              <span className="text-center">
+                <h5>Please log in to view your tasks.</h5>
+              </span>
+              <div className="card mt-3 p-3">
+                <RegisterForm />
+              </div>
+              <div className="card mt-3 p-3">
+                <LoginForm onLogin={handleLogin} />
+              </div>
+            </>
+          )}
+
+          {!loading && !error && user && (
+            <>
+              <div className="card mt-3 p-3">
+                <Row className="justify-content-center">
+                  <Col md={5}>
+                    <TaskForm user={user} fetchTaskList={fetchTaskList} />
+                  </Col>
+                </Row>
+              </div>
+              <div className="card mt-3 p-3">
+                <h2 className="mb-4 text-center">My Tasks</h2>
+                <Row className="justify-content-center">
+                  <Col md={5}>
+                    <TaskList
+                      user={user}
+                      taskList={taskList}
+                      onTaskUpdated={fetchTaskList}
+                    />
+                  </Col>
+                </Row>
+              </div>
+            </>
+          )}
+        </Container>
       </main>
-    </>
+    </div>
   );
 }
 

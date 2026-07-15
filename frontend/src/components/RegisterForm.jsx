@@ -79,40 +79,59 @@ function RegistrationForm() {
     <section>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name: </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        {errors.name && <span>{errors.name}</span>}
+        <div className="my-4">
+          <label htmlFor="name" className="form-label">
+            Name:{" "}
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          {errors.name && <span>{errors.name}</span>}
+        </div>
 
-        <label htmlFor="email">Email: </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        {errors.email && <span>{errors.email}</span>}
+        <div className="my-4">
+          <label htmlFor="email" className="form-label">
+            Email:{" "}
+          </label>
+          <input
+            className="form-control"
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          {errors.email && <span>{errors.email}</span>}
+        </div>
 
-        <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        {errors.password && <span>{errors.password}</span>}
+        <div className="my-4">
+          <label htmlFor="password" className="form-label">
+            Password:{" "}
+          </label>
+          <input
+            className="form-control"
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          {errors.password && <span>{errors.password}</span>}
+        </div>
 
-        <button type="submit" style={{ cursor: "pointer" }}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          style={{ cursor: "pointer" }}
+        >
           Register
         </button>
       </form>

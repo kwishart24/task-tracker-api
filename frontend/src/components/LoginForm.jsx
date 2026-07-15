@@ -78,19 +78,27 @@ function LoginForm({ onLogin }) {
     <section>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email: </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        {errors.email && <span>{errors.email}</span>}
+        <div className="my-4">
+          <label htmlFor="email" className="form-label">
+            Email:{" "}
+          </label>
+          <input
+            className="form-control"
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          {errors.email && <span>{errors.email}</span>}
+        </div>
 
-        <label htmlFor="password">Password: </label>
+        <label htmlFor="password" className="form-label">
+          Password:{" "}
+        </label>
         <input
+          className="form-control"
           type="password"
           id="password"
           name="password"
@@ -100,7 +108,11 @@ function LoginForm({ onLogin }) {
         />
         {errors.password && <span>{errors.password}</span>}
 
-        <button type="submit" style={{ cursor: "pointer" }}>
+        <button
+          type="submit"
+          style={{ cursor: "pointer" }}
+          className="btn btn-primary my-4"
+        >
           Login
         </button>
       </form>
