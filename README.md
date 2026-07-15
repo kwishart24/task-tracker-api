@@ -67,6 +67,7 @@ bash
 ```
 cd ../frontend
 npm install
+npm install react-bootstrap bootstrap
 ```
 
 5. Create a .env file in the project root
