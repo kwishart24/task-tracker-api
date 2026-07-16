@@ -98,7 +98,10 @@ function TaskList({ taskList, onTaskUpdated }) {
   return (
     <section>
       {taskList.length === 0 ? (
-        <p>No tasks found.</p>
+        <div className="text-center">
+          <p>No tasks found.</p>
+          <p>Add a new task.</p>
+        </div>
       ) : (
         taskList.map((task) => (
           <Card key={task._id} className="mb-3 shadow-sm">
@@ -147,6 +150,7 @@ function TaskList({ taskList, onTaskUpdated }) {
                   </p>
                   <Badge
                     bg={task.isCompleted ? "success" : "warning"}
+                    text={task.isCompleted ? "light" : "dark"}
                     className="mb-3"
                   >
                     {task.isCompleted ? "Completed" : "Incomplete"}
