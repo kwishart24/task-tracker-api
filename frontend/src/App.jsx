@@ -114,7 +114,7 @@ function App() {
   if (!backendConnected) {
     return (
       <main>
-        <h1>Task App</h1>
+        <h1>Task Tracker</h1>
         <div className="error-message">
           <p>Unable to connect to the backend. </p>
           <p>Please start the backend server and refresh the page.</p>
@@ -128,7 +128,7 @@ function App() {
       <Navbar user={user} logout={logout} />
       <main>
         <Container className="mt-4">
-          <h1 className="text-center">Task App</h1>
+          <h1 className="text-center">Task Tracker</h1>
 
           {loading && <p>Loading tasks...</p>}
           {error && <p>Error: {error}</p>}

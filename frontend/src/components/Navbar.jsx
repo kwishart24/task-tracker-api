@@ -8,7 +8,7 @@ function Navbar({ user, logout }) {
     <RBNavbar bg="dark" data-bs-theme="dark" expand="lg">
       <Container className="d-flex align-items-center">
         {/* Left */}
-        <RBNavbar.Brand href="/">Task App</RBNavbar.Brand>
+        <RBNavbar.Brand href="/">Task Tracker App</RBNavbar.Brand>
 
         {/* Center */}
         {user && (

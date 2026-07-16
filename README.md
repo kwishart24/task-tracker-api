@@ -1,10 +1,10 @@
-# Task Tracker API
+# Task Tracker App
 
-A secure, full‑stack ready REST API for creating, updating, retrieving, and deleting personal tasks. Built with Node.js, Express, MongoDB, and JWT authentication, this API allows each user to manage their own tasks safely and privately.
+A secure, full‑stack app with REST API and React frontend for creating, updating, retrieving, and deleting personal tasks. Built with React, Bootstrap, Node.js, Express, MongoDB, and JWT authentication, this app allows each user to manage their own tasks safely and privately.
 
 ## Project Overview
 
-The Task Tracker API provides user authentication and protected CRUD operations for managing tasks. Each user can register, log in, and perform task operations that are securely scoped to their own account. This API is designed for learning backend fundamentals and building full‑stack applications
+The Task Tracker provides user authentication and protected CRUD operations for managing tasks in a responsive and well-designed app. Each user can register, log in, and perform task operations that are securely scoped to their own account. This app is designed for learning how to build full‑stack applications.
 
 ## Features
 
@@ -23,6 +23,10 @@ The Task Tracker API provides user authentication and protected CRUD operations 
 - Clear error handling for all routes
 
 ## Technologies Used
+
+- React.js
+
+- Bootstrap.css
 
 - Node.js
 
@@ -82,7 +86,7 @@ cd ../backend
 npm run dev
 ```
 
-7. Start the project in the frontend
+7. Start the project in the frontend in a separate terminal
 
 bash
 
@@ -140,13 +144,15 @@ All task routes require a valid Authorization: Bearer <token> header.
 
 ## Testing Notes
 
-- Use Postman, Thunder Client, or Insomnia to test routes
+- Run the frontend from the "frontend" folder and the backend from the "backend" folder in separate terminals, running the backend first
 
-- Include the JWT token in the Authorization header for all protected routes
+- Use "npm run dev" in each folders' terminals 
 
-Example header:
+bash
 
-`Authorization: Bearer <token>`
+```
+npm run dev
+```
 
 - Ensure your MongoDB instance is running before testing
 
@@ -155,8 +161,6 @@ Example header:
 - Add pagination for large task lists
 
 - Add bulk create tasks route
-
-- Add logout route
 
 - Add user profile routes
 
