@@ -72,7 +72,7 @@ function App() {
     if (user) {
       fetchTaskList();
     }
-  }, [user]);
+  }, [user, fetchTaskList]);
 
   //Logout
   const logout = () => {

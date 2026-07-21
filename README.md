@@ -58,6 +58,7 @@ cd task-tracker-final
 bash
 
 ```
+cd backend
 npm install
 npm install express dotenv bcryptjs jsonwebtoken
 npm install --save-dev nodemon
@@ -74,7 +75,7 @@ npm install
 npm install react-bootstrap bootstrap
 ```
 
-5. Create a .env file in the project root
+5. Create two .env files, one in the frontend and one in the backend.
    Add the required environment variables (see next section).
 
 6. Start the server in the backend
@@ -107,7 +108,7 @@ MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 ```
 
-Create a .env file in the frontend folder with the following keys:
+Create a .env file in the frontend folder with the following key:
 
 ```
 VITE_API_URL=your_local_host_backend_url
@@ -121,14 +122,14 @@ VITE_API_URL=your_local_host_backend_url
 
 #### Method Endpoint Description
 
-- GET /health Confirms API is running
+- GET /api/health ~ Confirms API is running
 
 ### Auth Routes
 
 #### Method Endpoint Description
 
-- POST /register Register a new user
-- POST /login Log in and receive a JWT
+- POST /api/auth/register ~ Register a new user
+- POST /api/auth/login ~ Log in and receive a JWT
 
 ### Task Routes (Protected)
 
@@ -136,17 +137,17 @@ All task routes require a valid Authorization: Bearer <token> header.
 
 #### Method Endpoint Description
 
-- POST /tasks Create a new task
-- GET /tasks Get all tasks for the logged‑in user
-- GET /tasks/:taskId Get a single task by taskId
-- PATCH /tasks/:taskId Update a task
-- DELETE /tasks/:taskId Delete a task
+- POST /api/protected/tasks ~ Create a new task
+- GET /api/protected/tasks ~ Get all tasks for the logged‑in user
+- GET /api/protected/tasks/:taskId ~ Get a single task by taskId
+- PATCH /api/protected/tasks/:taskId ~ Update a task
+- DELETE /api/protected/tasks/:taskId ~ Delete a task
 
 ## Testing Notes
 
 - Run the frontend from the "frontend" folder and the backend from the "backend" folder in separate terminals, running the backend first
 
-- Use "npm run dev" in each folders' terminals 
+- Use "npm run dev" in each folders' terminals
 
 bash
 
@@ -156,7 +157,24 @@ npm run dev
 
 - Ensure your MongoDB instance is running before testing
 
+## Screenshots
+
+Backend running locally:
+
+![Screenshot of terminal showing the backend of the project running locally](assets/backendscreenshot.png)
+
+Frontend running locally:
+![Screenshot of register/login page of application running locally](assets/frontendscreenshot.png)
+
 ## Known Issues / Future Improvements
+
+### Known Issues
+
+- useEffect in App.jsx is flagging because using a synchronous function in a useEffect might create cascading re-renders, however, the app is working properly
+
+- backEndError is also flagging because the variable is assigned in the useState, but never used, which does not hinder functionality
+
+### Future Improvements
 
 - Add pagination for large task lists
 
